@@ -12,18 +12,18 @@ import org.testng.annotations.Test;
 
 import com.training.generics.ScreenShot;
 import com.training.pom.LoginPOM;
-import com.training.pom.Unf_016POM;
+import com.training.pom.UNF_046POM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class OrderDelete {
-
+public class ChangeOrder {
 	private WebDriver driver;
 	private String baseUrl;
 	private LoginPOM loginPOM;
-	private Unf_016POM orderDelete;
 	private static Properties properties;
 	private ScreenShot screenShot;
+	private UNF_046POM changeorder;
+	
 
 	@BeforeClass
 	public void setUpBeforeClass() throws IOException {
@@ -32,7 +32,7 @@ public class OrderDelete {
 		properties.load(inStream);
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
 		loginPOM = new LoginPOM(driver);
-		orderDelete=new Unf_016POM(driver);
+		changeorder=new UNF_046POM(driver);
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver); 
 		// open the browser 
@@ -51,19 +51,28 @@ public class OrderDelete {
 		loginPOM.clickLoginBtn(); 
 		screenShot.captureScreenShot("First");
 	}
-	 
-	@Test(priority=2)
-	public void VaildOrderDelete() throws Exception {
-		orderDelete.clickCart();
-		Thread.sleep(5000);
-		orderDelete.clickOrder();
-		Thread.sleep(5000);
-		orderDelete.selectOrdernum();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		orderDelete.clickDeleteorder();
-		
-	}
-	
-	
+   @Test(priority=2)
+   public void changeOrderTest() throws Exception{
+	   changeorder.clickCart();//Clicking on Cart
+	   changeorder.clickOrder();//clicking on order link
+	   driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+	   changeorder.selectOrdernum();//Selecting the order
+	   Thread.sleep(3000);
+	   changeorder.clickEdit();//Click on Edit icon
+	   Thread.sleep(3000);
+	   changeorder.continuecustomer();//Click on Continue button
+	   changeorder.removeorder();////remove Order
+	   Thread.sleep(3000);
+	   changeorder.chooseProduct("SPORTS T-SHIRTS");//Choose Product
+	   Thread.sleep(3000);
+	   changeorder.EnterQuantity("1");//EnterQuantity
+	   changeorder.AddProduct();//Add Product
+	   Thread.sleep(3000);
+	   changeorder.Continue1();//Continue cart
+	   changeorder.paymentAddress();//Continue payment address
+	   changeorder.shippingAddress();//shipping address
+	   changeorder.SaveCart(); //Save Cart
+	   
+   }
 
 }

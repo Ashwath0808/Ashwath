@@ -41,7 +41,7 @@ public class ReturnCart {
 	@AfterClass
 	public void tearDown() throws Exception {
 		Thread.sleep(1000);
-		driver.quit();
+		//driver.quit();
 	}
 	@Test(priority=1)
 	public void validLoginTest() {
